@@ -1,0 +1,19 @@
+{
+  "name": "formula-experta-landing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Лендинг авторской системы «Формула эксперта»",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "test": "node --test",
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "devDependencies": {
+    "vite": "^7.3.6"
+  }
+}

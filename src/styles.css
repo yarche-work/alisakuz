@@ -909,25 +909,24 @@ button:focus-visible {
   .section-index { top: 15px; }
 
   .hero-block {
-    min-height: 0;
+    min-height: 930px;
     background-image: none;
   }
   .hero-block::after {
     content: '';
     position: absolute;
-    inset: auto 0 0;
+    inset: 110px 0 0;
     z-index: 0;
-    height: 620px;
     background-image: url('../assets/hero-portrait.png');
     background-position: 67% bottom;
     background-size: auto 100%;
     background-repeat: no-repeat;
     filter: saturate(.78) brightness(1.08);
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, .38) 12%, #000 27%);
-    mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, .38) 12%, #000 27%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, .26) 18%, #000 42%);
+    mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, .26) 18%, #000 42%);
     pointer-events: none;
   }
-  .hero-content { width: 100%; padding: 90px 18px 620px; }
+  .hero-content { width: 100%; padding: 90px 18px 80px; }
   .hero-content h1 { margin-bottom: 35px; }
   .hero-content h1 span { font-size: clamp(54px, 17vw, 82px); }
   .hero-content h1 em { margin-left: 30%; font-size: clamp(50px, 15vw, 74px); }

@@ -47,7 +47,7 @@ test('all site assets live in the documented assets directory', async () => {
   const expectedAssets = [
     'assets/hero-portrait.png',
     'assets/collage/arrow.jpg',
-    'assets/collage/clip.jpg',
+    'assets/collage/clip.png',
     'assets/collage/laptop.jpg',
     'assets/collage/notebook.jpg',
     'assets/collage/pen.jpg',

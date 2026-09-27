@@ -67,14 +67,14 @@ test('hero collage keeps the pen and notebook near the heading and stars behind 
   assert.match(css, /\.hero-object--stars\s*\{[^}]*left:\s*46\.5%/is);
 });
 
-test('mobile hero keeps the portrait below the actions and blends it into the page', async () => {
+test('mobile hero layers the portrait behind the copy instead of below it', async () => {
   const css = await readFile(cssUrl, 'utf8');
 
-  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-block::after\s*\{[^}]*inset:\s*auto 0 0[^}]*height:\s*620px[^}]*background-image:\s*url\('\.\.\/assets\/hero-portrait\.png'\)[^}]*background-size:\s*auto 100%/is);
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-block\s*\{[^}]*min-height:\s*930px[^}]*background-image:\s*none/is);
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-block::after\s*\{[^}]*inset:\s*110px 0 0[^}]*background-image:\s*url\('\.\.\/assets\/hero-portrait\.png'\)[^}]*background-size:\s*auto 100%/is);
   assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-block::after\s*\{[^}]*filter:\s*saturate\(\.78\) brightness\(1\.08\)/is);
   assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-block::after\s*\{[^}]*mask-image:\s*linear-gradient\(to bottom/is);
-  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-content\s*\{[^}]*padding:\s*90px 18px 620px/is);
-  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-block\s*\{[^}]*background-image:\s*none/is);
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-content\s*\{[^}]*padding:\s*90px 18px 80px/is);
 });
 
 test('problem composition points to the laptop and clips the note', async () => {
@@ -84,7 +84,7 @@ test('problem composition points to the laptop and clips the note', async () => 
   ]);
 
   assert.doesNotMatch(html, /problem-object--clip/);
-  assert.match(html, /note-paper-clip/);
+  assert.match(html, /<img class="note-paper-clip" src="\.\/assets\/collage\/clip\.png"/i);
   assert.match(html, /problem-object--arrow[^>]+src="\.\/assets\/collage\/arrow\.jpg"/is);
   assert.match(css, /\.problem-object--arrow\s*\{[^}]*mix-blend-mode:\s*multiply/is);
   assert.match(css, /\.problem-object--arrow\s*\{[^}]*width:\s*clamp\(220px,\s*21vw,\s*320px\)/is);

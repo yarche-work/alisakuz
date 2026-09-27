@@ -67,6 +67,13 @@ test('hero collage keeps the pen and notebook near the heading and stars behind 
   assert.match(css, /\.hero-object--stars\s*\{[^}]*left:\s*46\.5%/is);
 });
 
+test('mobile hero renders the portrait as a visible foreground background layer', async () => {
+  const css = await readFile(cssUrl, 'utf8');
+
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-block::after\s*\{[^}]*content:\s*''[^}]*background-image:\s*url\('\.\.\/assets\/hero-portrait\.png'\)[^}]*background-size:\s*auto 52%/is);
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-block\s*\{[^}]*background-image:\s*none/is);
+});
+
 test('problem composition points to the laptop and clips the note', async () => {
   const [css, html] = await Promise.all([
     readFile(cssUrl, 'utf8'),
@@ -83,6 +90,37 @@ test('problem composition points to the laptop and clips the note', async () => 
   assert.match(css, /\.note-paper-clip\s*\{[^}]*top:\s*-82px/is);
   assert.match(css, /\.note-paper-clip\s*\{[^}]*transform:\s*translateX\(-50%\);/is);
   assert.match(css, /\.problem-tag\s*\{[^}]*width:\s*min\(62%,\s*760px\)/is);
+});
+
+test('mobile problem note is compact, unbolded, and clipped to the paper edge', async () => {
+  const css = await readFile(cssUrl, 'utf8');
+
+  assert.match(css, /\.note-paper strong\s*\{[^}]*font-weight:\s*400/is);
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.paper-stack\s*\{[^}]*min-height:\s*650px/is);
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.note-paper\s*\{[^}]*width:\s*calc\(100% - 32px\)[^}]*min-height:\s*0/is);
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.note-paper-clip\s*\{[^}]*top:\s*-50px/is);
+});
+
+test('mobile question pills form a compact two-to-three-column grid', async () => {
+  const css = await readFile(cssUrl, 'utf8');
+
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.question-pills\s*\{[^}]*display:\s*grid[^}]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/is);
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.pill--wide\s*\{[^}]*grid-column:\s*1\s*\/\s*-1/is);
+  assert.match(css, /@media \(min-width:\s*520px\) and \(max-width:\s*720px\)[\s\S]*?\.question-pills\s*\{[^}]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/is);
+});
+
+test('final card separates the handwritten hook from the framed conclusion', async () => {
+  const html = await readFile(htmlUrl, 'utf8');
+
+  assert.match(html, /<h2><span>Ваша «Формула эксперта»<\/span><em>Хватит ломать голову, что сегодня снять<\/em><\/h2>/i);
+  assert.match(html, /<div class="final-text">\s*<strong>Пора увидеть, структурировать и правильно показать то ценное, что уже есть\.<\/strong>\s*<\/div>/i);
+  assert.doesNotMatch(html, /<div class="final-text">\s*<p>/i);
+});
+
+test('mobile final CTA sits in the open space below the copy instead of over the mockups', async () => {
+  const css = await readFile(cssUrl, 'utf8');
+
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.final-card > \.button\s*\{[^}]*position:\s*relative[^}]*right:\s*auto[^}]*bottom:\s*auto[^}]*margin:\s*32px 24px 0[^}]*width:\s*calc\(100% - 48px\)/is);
 });
 
 test('change labels use the requested colors and shared vertical guides', async () => {

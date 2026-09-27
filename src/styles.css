@@ -909,21 +909,25 @@ button:focus-visible {
   .section-index { top: 15px; }
 
   .hero-block {
-    min-height: 930px;
+    min-height: 0;
     background-image: none;
   }
   .hero-block::after {
     content: '';
     position: absolute;
-    inset: 0;
+    inset: auto 0 0;
     z-index: 0;
+    height: 620px;
     background-image: url('../assets/hero-portrait.png');
     background-position: 67% bottom;
-    background-size: auto 52%;
+    background-size: auto 100%;
     background-repeat: no-repeat;
+    filter: saturate(.78) brightness(1.08);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, .38) 12%, #000 27%);
+    mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, .38) 12%, #000 27%);
     pointer-events: none;
   }
-  .hero-content { width: 100%; padding: 90px 18px 0; }
+  .hero-content { width: 100%; padding: 90px 18px 620px; }
   .hero-content h1 { margin-bottom: 35px; }
   .hero-content h1 span { font-size: clamp(54px, 17vw, 82px); }
   .hero-content h1 em { margin-left: 30%; font-size: clamp(50px, 15vw, 74px); }
@@ -940,8 +944,8 @@ button:focus-visible {
   .problem-object--clip,
   .problem-object--arrow { display: none; }
   .problem-question-cloud { display: none; }
-  .problem-tag { width: 100%; }
-  .paper-stack { width: 100%; min-height: 650px; margin: 30px 0 0; }
+  .problem-tag { z-index: 2; width: 100%; }
+  .paper-stack { z-index: 5; width: 100%; min-height: 650px; margin: 30px 0 0; }
   .lined-scrap { top: 300px; left: -8px; width: 290px; height: 250px; }
   .note-paper { right: 0; width: calc(100% - 32px); min-height: 0; padding: 72px 22px 28px; }
   .note-paper-clip { top: -50px; }
@@ -961,14 +965,14 @@ button:focus-visible {
     align-items: center;
     justify-content: center;
     min-width: 0;
-    min-height: 58px;
+    min-height: 50px;
     max-width: none;
-    padding: 8px 9px;
+    padding: 6px 8px;
     border-width: 2px;
     font-size: 12px;
     line-height: 1.18;
   }
-  .pill--wide { grid-column: 1 / -1; min-height: 52px; }
+  .pill--wide { grid-column: 1 / -1; min-height: 46px; }
 
   .formula-block { min-height: auto; padding: 90px 18px 65px; }
   .formula-board {

@@ -67,10 +67,13 @@ test('hero collage keeps the pen and notebook near the heading and stars behind 
   assert.match(css, /\.hero-object--stars\s*\{[^}]*left:\s*46\.5%/is);
 });
 
-test('mobile hero renders the portrait as a visible foreground background layer', async () => {
+test('mobile hero keeps the portrait below the actions and blends it into the page', async () => {
   const css = await readFile(cssUrl, 'utf8');
 
-  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-block::after\s*\{[^}]*content:\s*''[^}]*background-image:\s*url\('\.\.\/assets\/hero-portrait\.png'\)[^}]*background-size:\s*auto 52%/is);
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-block::after\s*\{[^}]*inset:\s*auto 0 0[^}]*height:\s*620px[^}]*background-image:\s*url\('\.\.\/assets\/hero-portrait\.png'\)[^}]*background-size:\s*auto 100%/is);
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-block::after\s*\{[^}]*filter:\s*saturate\(\.78\) brightness\(1\.08\)/is);
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-block::after\s*\{[^}]*mask-image:\s*linear-gradient\(to bottom/is);
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-content\s*\{[^}]*padding:\s*90px 18px 620px/is);
   assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-block\s*\{[^}]*background-image:\s*none/is);
 });
 
@@ -97,6 +100,8 @@ test('mobile problem note is compact, unbolded, and clipped to the paper edge', 
 
   assert.match(css, /\.note-paper strong\s*\{[^}]*font-weight:\s*400/is);
   assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.paper-stack\s*\{[^}]*min-height:\s*650px/is);
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.problem-tag\s*\{[^}]*z-index:\s*2/is);
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.paper-stack\s*\{[^}]*z-index:\s*5/is);
   assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.note-paper\s*\{[^}]*width:\s*calc\(100% - 32px\)[^}]*min-height:\s*0/is);
   assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.note-paper-clip\s*\{[^}]*top:\s*-50px/is);
 });
@@ -105,7 +110,9 @@ test('mobile question pills form a compact two-to-three-column grid', async () =
   const css = await readFile(cssUrl, 'utf8');
 
   assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.question-pills\s*\{[^}]*display:\s*grid[^}]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/is);
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.pill\s*\{[^}]*min-height:\s*50px[^}]*padding:\s*6px 8px/is);
   assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.pill--wide\s*\{[^}]*grid-column:\s*1\s*\/\s*-1/is);
+  assert.match(css, /@media \(max-width:\s*720px\)[\s\S]*?\.pill--wide\s*\{[^}]*min-height:\s*46px/is);
   assert.match(css, /@media \(min-width:\s*520px\) and \(max-width:\s*720px\)[\s\S]*?\.question-pills\s*\{[^}]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/is);
 });
 
